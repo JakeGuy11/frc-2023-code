@@ -5,8 +5,12 @@
 #pragma once
 
 #include <string>
+#include <iostream>
+#include "utils.h"
+#include "outputs.h"
 
 #include <frc/TimedRobot.h>
+#include <frc/PowerDistribution.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Joystick.h>
@@ -15,6 +19,7 @@
 typedef ctre::phoenix::motorcontrol::can::VictorSPX VictorSPX;
 typedef ctre::phoenix::motorcontrol::VictorSPXControlMode VictorSPXControlMode;
 typedef ctre::phoenix::motorcontrol::NeutralMode NeutralMode;
+typedef frc::PowerDistribution PDP;
 
 class Robot : public frc::TimedRobot {
  public:
@@ -31,7 +36,17 @@ class Robot : public frc::TimedRobot {
 
  private:
   frc::SendableChooser<std::string> m_chooser;
-  const std::string kAutoNameDefault = "Default";
-  const std::string kAutoNameCustom = "My Auto";
+  const std::string kAutoNameDefault = "-----";
+  std::string m_autoSelected;
 
+  frc::Joystick stick     {JOYSTICK_PORT};
+  PDP pdp                 {ID_PDP, PDP_TYPE};
+  VictorSPX mRight        {ID_RMOTOR1};
+  VictorSPX mRight2       {ID_RMOTOR2};
+  VictorSPX mLeft         {ID_LMOTOR1};
+  VictorSPX mLeft2        {ID_LMOTOR2};
+
+
+  void initPDP();
+  void initDriveControllers(NeutralMode m);
 };
