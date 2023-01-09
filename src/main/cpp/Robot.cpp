@@ -30,7 +30,35 @@ void Robot::TeleopInit() {
   std::cout << "Entering teleop mode..." << std::endl;
 }
 
-void Robot::TeleopPeriodic() { }
+void Robot::TeleopPeriodic() {
+  handleDrive();
+}
+
+// Do all the calculations for driving
+void Robot::handleDrive() {
+  double x = stick.GetX() * JOYSTICK_SENS;  // In terms of arcade drive, this is turn
+  double y = -stick.GetY() * JOYSTICK_SENS;  // In terms of arcade drive, this is speed
+
+  double leftPower = (y + x) / 2;
+  double rightPower = (y - x) / 2;
+
+  updateDriveMotors(leftPower, rightPower);
+}
+
+// Update the drive motors
+void Robot::updateDriveMotors(double lPower, double rPower) {
+  if (!userControlEnabled) return;
+
+  if (lPower != lastDrivePowers.first) {
+    mLeft.Set(MCONTROLLER_MODE, lPower * L_MOTOR_SENS);
+    lastDrivePowers.first = lPower;
+  }
+
+  if (rPower != lastDrivePowers.second) {
+    mRight.Set(MCONTROLLER_MODE, rPower * R_MOTOR_SENS);
+    lastDrivePowers.second = rPower;
+  }
+}
 
 // When the robot is first disabled
 void Robot::DisabledInit() { std::cout << "Robot Disabled." << std::endl; }
