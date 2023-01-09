@@ -1,4 +1,4 @@
-// Copyright (c) 2022, JakeGuy11 and FRC Team 7722
+// Copyright (c) 2023, JakeGuy11 and FRC Team 7722
 
 #include "Robot.h"
 
@@ -21,10 +21,12 @@ void Robot::RobotPeriodic() { }
 // Runs at start of auto
 void Robot::AutonomousInit() {
   std::cout << "Entering autonomous mode..." << std::endl;
+  autonomous.StartAuto(std::chrono::system_clock::now().time_since_epoch().count(), m_autoSelected); // 10^-9s
 }
 
 void Robot::AutonomousPeriodic() {
-  updateDriveMotors(1.0, 1.0);
+  //updateDriveMotors(1.0, 1.0, false);
+  autonomous.AutoUpdate(std::chrono::system_clock::now().time_since_epoch().count());
 }
 
 // Runs at start of teleop
@@ -44,12 +46,12 @@ void Robot::handleDrive() {
   double leftPower = (y + x) / 2;
   double rightPower = (y - x) / 2;
 
-  updateDriveMotors(leftPower, rightPower);
+  updateDriveMotors(leftPower, rightPower, true);
 }
 
 // Update the drive motors
-void Robot::updateDriveMotors(double lPower, double rPower) {
-  if (!userControlEnabled) return;
+void Robot::updateDriveMotors(double lPower, double rPower, bool human) {
+  if (!userControlEnabled || !human) return;
 
   if (lPower != lastDrivePowers.first) {
     mLeft.Set(MCONTROLLER_MODE, lPower * L_MOTOR_SENS);

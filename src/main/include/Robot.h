@@ -9,6 +9,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Joystick.h>
+#include <frc/Timer.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <ctre/phoenix/motorcontrol/NeutralMode.h>
 typedef ctre::phoenix::motorcontrol::can::VictorSPX VictorSPX;
@@ -17,10 +18,12 @@ typedef ctre::phoenix::motorcontrol::NeutralMode NeutralMode;
 typedef frc::PowerDistribution PDP;
 
 #include <string>
+#include <chrono>
 #include <utility>
 #include <iostream>
 #include "config.h"
 #include "utils.h"
+#include "Autonomous.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -39,6 +42,7 @@ class Robot : public frc::TimedRobot {
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "-----";
   std::string m_autoSelected;
+  MechaAuto autonomous {0.0};
 
   bool userControlEnabled = true;
   std::pair<double, double> lastDrivePowers {0.0, 0.0}; // LEFT, RIGHT
@@ -51,7 +55,7 @@ class Robot : public frc::TimedRobot {
   VictorSPX mLeft2        {ID_LMOTOR2};
 
   void handleDrive();
-  void updateDriveMotors(double lPower, double rPower);
+  void updateDriveMotors(double lPower, double rPower, bool human);
 
   void initPDP();
   void initDriveControllers(NeutralMode m);
