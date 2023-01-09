@@ -10,7 +10,7 @@ void Robot::RobotInit() {
   // Get all our autonomous options sorted out
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   std::string auto_tags[] = { "F----", "M----", "S----" };
-  for (int i = 0; i < arraySize(auto_tags); i++) {
+  for (uint i = 0; i < arraySize(auto_tags); i++) {
     m_chooser.AddOption(auto_tags[i], auto_tags[i]);
   }
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
@@ -82,3 +82,6 @@ int main() {
   return frc::StartRobot<Robot>();
 }
 #endif
+
+void Robot::TestInit() { }
+void Robot::TestPeriodic() { }
