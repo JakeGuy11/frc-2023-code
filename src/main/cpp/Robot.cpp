@@ -23,7 +23,9 @@ void Robot::AutonomousInit() {
   std::cout << "Entering autonomous mode..." << std::endl;
 }
 
-void Robot::AutonomousPeriodic() { }
+void Robot::AutonomousPeriodic() {
+  updateDriveMotors(1.0, 1.0);
+}
 
 // Runs at start of teleop
 void Robot::TeleopInit() {
