@@ -5,7 +5,6 @@
 #include <iostream>
 #include <queue>
 #include "config.h"
-#include "utils.h"
 #include "Autonomous.h"
 
 enum StartPos {

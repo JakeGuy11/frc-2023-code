@@ -53,7 +53,7 @@ void MechaAuto::AutoUpdate(double currentNanos) {
         msg << "Preforming task " << taskQueue.front() << ", ";
     }
     msg << "\b\b";
-    print(msg.str());
+    std::cout << msg.str() << std::endl;
 
     switch (taskQueue.front()) {
         case AutoState::INIT:
@@ -155,7 +155,7 @@ void MechaAuto::OverwriteKey(std::string key) {
 void MechaAuto::TransitionState() {
     std::ostringstream msg;
     msg << "Finished task " << taskQueue.front();
-    print(msg.str());
+    std::cout << msg.str() << std::endl;
     taskQueue.pop();
 }
 
@@ -166,7 +166,7 @@ void MechaAuto::TransitionState() {
 // For handling the initialization state
 void MechaAuto::HandleInit() {
     // Literally nothing to do here
-    print("*vine boom*");
+    std::cout << "*vine boom*" << std::endl;
     TransitionState();
 }
 
