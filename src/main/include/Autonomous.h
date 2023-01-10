@@ -3,6 +3,7 @@
 #include <iostream>
 #include <queue>
 #include "utils.h"
+#include "config.h"
 
 enum StartPos {
   DISABLE,
@@ -46,6 +47,22 @@ class MechaAuto {
   SelectedAutoFeatures tasksToPreform;
   double startTime;
 
-  void OverwriteKey(std::string);
+  void OverwriteKey(std::string key);
+  void TransitionState();
+
+  double scoreDistance;
+  double dockDistance;
+  double mobilityDistance;
+
   void HandleInit();
+  void HandleScoreMove();
+  void HandleScoreEngage();
+  void HandleScoreScore();
+  void HandleScoreRetract();
+  void HandleScoreReturn();
+  void HandleDock();
+  void HandleMobilityGo();
+  void HandleMobilityReturn();
+  void HandleEngageBalance();
+  void HandleIdle();
 };
