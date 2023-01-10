@@ -34,6 +34,7 @@ void MechaAuto::StartAuto(double nanos, std::string key) {
     // Do we get mobility points?
     if (tasksToPreform.mobility) {
         taskQueue.push(AutoState::MOBILITY_GO);
+        taskQueue.push(AutoState::MOBILITY_STATIONARY);
         taskQueue.push(AutoState::MOBILITY_RETURN);
     }
     // Do we engage?
@@ -78,6 +79,9 @@ void MechaAuto::AutoUpdate(double currentNanos) {
             break;
         case AutoState::MOBILITY_GO:
             HandleMobilityGo();
+            break;
+        case AutoState::MOBILITY_STATIONARY:
+            HandleMobilityStationary();
             break;
         case AutoState::MOBILITY_RETURN:
             HandleMobilityReturn();
@@ -206,6 +210,12 @@ void MechaAuto::HandleDock() {
 // For handling the state when moving to score mobility points
 void MechaAuto::HandleMobilityGo() {
     // Go forward mobilityDistance
+    TransitionState();
+}
+
+// For handling the state when waiting to become stationary after scoring mobility points
+void MechaAuto::HandleMobilityStationary() {
+    // Wait MOBILITY_WAIT_TIME_SEC seconds
     TransitionState();
 }
 

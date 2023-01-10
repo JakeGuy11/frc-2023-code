@@ -24,6 +24,7 @@ enum AutoState {
   SCORE_RETURN,
   DOCK,
   MOBILITY_GO,
+  MOBILITY_STATIONARY,
   MOBILITY_RETURN,
   ENGAGE_BALANCE,
   IDLE
@@ -66,6 +67,7 @@ class MechaAuto {
   void HandleDock();
   void HandleMobilityGo();
   void HandleMobilityReturn();
+  void HandleMobilityStationary();
   void HandleEngageBalance();
   void HandleIdle();
 };
