@@ -20,7 +20,7 @@ void Robot::RobotPeriodic() { }
 
 // Runs at start of auto
 void Robot::AutonomousInit() {
-  std::cout << "Entering autonomous mode..." << std::endl;
+  print("Entering autonomous mode...");
   autonomous.StartAuto(std::chrono::system_clock::now().time_since_epoch().count(), m_autoSelected); // 10^-9s
 }
 
@@ -31,7 +31,7 @@ void Robot::AutonomousPeriodic() {
 
 // Runs at start of teleop
 void Robot::TeleopInit() {
-  std::cout << "Entering teleop mode..." << std::endl;
+  print("Entering teleop mode...");
 }
 
 void Robot::TeleopPeriodic() {
@@ -65,7 +65,7 @@ void Robot::updateDriveMotors(double lPower, double rPower, bool human) {
 }
 
 // When the robot is first disabled
-void Robot::DisabledInit() { std::cout << "Robot Disabled." << std::endl; }
+void Robot::DisabledInit() { print("Robot Disabled."); }
 
 // Periodically when the robot is disabled
 void Robot::DisabledPeriodic() {
@@ -74,7 +74,7 @@ void Robot::DisabledPeriodic() {
   double temp = pdp.GetTemperature();
   std::ostringstream initMsg;
   initMsg << temp << "°C @ " << v << "V";
-  std::cout << initMsg.str() << std::endl;
+  print(initMsg.str());
 }
 
 // Do some configuration for all the drive motors
@@ -106,7 +106,7 @@ void Robot::initPDP() {
   std::ostringstream initMsg;
   initMsg << temp << "°C @ " << v << "V";
 
-  std::cout << initMsg.str() << std::endl;
+  print(initMsg.str());
 }
 
 #ifndef RUNNING_FRC_TESTS

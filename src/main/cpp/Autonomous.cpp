@@ -47,10 +47,12 @@ void MechaAuto::StartAuto(double nanos, std::string key) {
 // This is our main handler; It will be run each loop and must decide what to do
 void MechaAuto::AutoUpdate(double currentNanos) {
     std::queue<AutoState> q(taskQueue);
+    std::ostringstream msg;
     for (;!q.empty(); q.pop()) {
-        std::cout << "Preforming task " << q.front() << ", ";
+        msg << "Preforming task " << taskQueue.front() << ", ";
     }
-    std::cout << "\b\b" << std::endl;
+    msg << "\b\b";
+    print(msg.str());
 
     switch (taskQueue.front()) {
         case AutoState::INIT:
@@ -146,9 +148,10 @@ void MechaAuto::OverwriteKey(std::string key) {
     }
 }
 
-
 void MechaAuto::TransitionState() {
-    std::cout << "Finished task " << taskQueue.front() << std::endl;
+    std::ostringstream msg;
+    msg << "Finished task " << taskQueue.front();
+    print(msg.str());
     taskQueue.pop();
 }
 
@@ -159,7 +162,7 @@ void MechaAuto::TransitionState() {
 // For handling the initialization state
 void MechaAuto::HandleInit() {
     // Literally nothing to do here
-    std::cout << "*vine boom*" << std::endl;
+    print("*vine boom*");
     TransitionState();
 }
 
